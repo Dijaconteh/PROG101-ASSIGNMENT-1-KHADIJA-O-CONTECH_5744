@@ -1,0 +1,523 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="MAIN FLOWCHART"/>
+        <attribute name="authors" value="Local Admin"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2026-10-16 01:12:23 PM"/>
+        <attribute name="created" value="TG9jYWwgQWRtaW47REVTS1RPUC1WOEQ3T0dKOzIwMjYtMTAtMTU7MDc6NDM6MjYgQU07MzM1Mg=="/>
+        <attribute name="edited" value="TG9jYWwgQWRtaW47REVTS1RPUC1WOEQ3T0dKOzIwMjYtMTAtMTY7MDE6MTI6MjMgUE07MTQ7MzUxNQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="statuses" type="String" array="True" size="50"/>
+            <declare name="option" type="Integer" array="False" size=""/>
+            <assign variable="option" expression="-1"/>
+            <declare name="listingIDs" type="String" array="True" size="50"/>
+            <declare name="farmerIDs" type="String" array="True" size="50"/>
+            <declare name="products" type="String" array="True" size="50"/>
+            <declare name="quantities" type="Real" array="True" size="50"/>
+            <declare name="registeredFarmerIDs" type="String" array="True" size="50"/>
+            <declare name="farmerCount" type="Integer" array="False" size=""/>
+            <declare name="units" type="String" array="True" size="50"/>
+            <declare name="prices" type="Real" array="True" size="50"/>
+            <declare name="locations" type="String" array="True" size="50"/>
+            <declare name="contacts" type="String" array="True" size="50"/>
+            <declare name="status" type="String" array="True" size="50"/>
+            <declare name="identificationResult" type="Boolean" array="False" size=""/>
+            <declare name="listingCount" type="Integer" array="False" size=""/>
+            <declare name="authorizedFarmerIDs" type="String" array="True" size="50"/>
+            <declare name="authorizedAssistantIDs" type="String" array="True" size="50"/>
+            <declare name="relationshipCount" type="Integer" array="False" size=""/>
+            <assign variable="listingCount" expression="0"/>
+            <assign variable="farmerCount" expression="0"/>
+            <assign variable="registeredFarmerIDs[0]" expression="&quot;F001&quot;"/>
+            <assign variable="authorizedFarmerIDs[0]" expression="&quot;F001&quot;"/>
+            <assign variable="authorizedAssistantIDs[0]" expression="&quot;A002&quot;"/>
+            <assign variable="relationshipCount" expression="1"/>
+            <assign variable="farmerCount" expression="1"/>
+            <while expression="option !=0">
+                <output expression="&quot;FARMERS TRADING MARKET INFORMATION SYSTEM&quot;" newline="True"/>
+                <output expression="&quot;1. Add Produce Listing&quot;" newline="True"/>
+                <output expression="&quot;2. Search Active Listings&quot;" newline="True"/>
+                <output expression="&quot;3. Update Listing&quot;" newline="True"/>
+                <output expression="&quot;4. Mark Listing as Sold&quot;" newline="True"/>
+                <output expression="&quot;5. Identify Farmer&quot;" newline="True"/>
+                <output expression="&quot;0. Exit&quot;" newline="True"/>
+                <output expression="&quot;Enter your option (0-5):&quot;" newline="True"/>
+                <input variable="option"/>
+                <if expression="option == 0">
+                    <then>
+                        <output expression="&quot;THANK YOU FOR USING FARMERS TRADING MARKET INFORMATION SYSTEM GOODBYE!&quot;" newline="True"/>
+                    </then>
+                    <else>
+                        <if expression="option &gt;=1 and option &lt;=5">
+                            <then>
+                                <if expression="option == 1">
+                                    <then>
+                                        <assign variable="listingCount" expression="AddListing(listingIDs, farmerIDs, products, quantities, units, prices, locations, contacts, statuses, listingCount, registeredFarmerIDs, farmerCount,authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)"/>
+                                    </then>
+                                    <else>
+                                        <if expression="option == 2">
+                                            <then>
+                                                <call expression="SearchListings(listingIDs, products, quantities, units, prices, locations, contacts, statuses, listingCount)"/>
+                                            </then>
+                                            <else>
+                                                <if expression="option == 3">
+                                                    <then>
+                                                        <call expression="UpdateListing(listingIDs, farmerIDs, quantities, prices, statuses, listingCount, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)"/>
+                                                    </then>
+                                                    <else>
+                                                        <if expression="option == 4">
+                                                            <then>
+                                                                <call expression="MarkListingSold(listingIDs, farmerIDs, statuses, listingCount, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)"/>
+                                                            </then>
+                                                            <else>
+                                                                <if expression="option == 5">
+                                                                    <then>
+                                                                        <assign variable="identificationResult" expression="IdentifyFarmer(registeredFarmerIDs, farmerCount, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)"/>
+                                                                    </then>
+                                                                    <else/>
+                                                                </if>
+                                                            </else>
+                                                        </if>
+                                                    </else>
+                                                </if>
+                                            </else>
+                                        </if>
+                                    </else>
+                                </if>
+                            </then>
+                            <else>
+                                <output expression="&quot;invalid option. please enter a number from 0 to 5.&quot;" newline="True"/>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </while>
+        </body>
+    </function>
+    <function name="AddListing" type="Integer" variable="updatedCount">
+        <parameters>
+            <parameter name="listingIDs" type="String" array="True"/>
+            <parameter name="farmerIDs" type="String" array="True"/>
+            <parameter name="products" type="String" array="True"/>
+            <parameter name="quantities" type="Real" array="True"/>
+            <parameter name="units" type="String" array="True"/>
+            <parameter name="prices" type="Real" array="True"/>
+            <parameter name="locations" type="String" array="True"/>
+            <parameter name="contacts" type="String" array="True"/>
+            <parameter name="statuses" type="String" array="True"/>
+            <parameter name="listingCount" type="Integer" array="False"/>
+            <parameter name="registeredFarmerIDs" type="String" array="True"/>
+            <parameter name="farmerCount" type="Integer" array="False"/>
+            <parameter name="authorizedFarmerIDs" type="String" array="True"/>
+            <parameter name="authorizedAssistantIDs" type="String" array="True"/>
+            <parameter name="relationshipCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="updatedCount" type="Integer" array="False" size=""/>
+            <declare name="farmerID" type="String" array="False" size=""/>
+            <declare name="actorID" type="String" array="False" size=""/>
+            <declare name="productName" type="String" array="False" size=""/>
+            <declare name="quantity" type="Real" array="False" size=""/>
+            <declare name="unit" type="String" array="False" size=""/>
+            <declare name="pricePerUnit" type="Real" array="False" size=""/>
+            <declare name="location" type="String" array="False" size=""/>
+            <declare name="contactPreference" type="String" array="False" size=""/>
+            <declare name="listingComplete" type="Boolean" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            <declare name="listingID" type="String" array="False" size=""/>
+            <declare name="choice" type="String" array="False" size=""/>
+            <assign variable="listingComplete" expression="False"/>
+            <assign variable="updatedCount" expression="listingCount"/>
+            <output expression="&quot;Enter the Farmer ID&quot;" newline="True"/>
+            <assign variable="choice" expression="&quot;RETRY&quot;"/>
+            <input variable="farmerID"/>
+            <output expression="&quot;Enter your Actor ID:&quot;" newline="True"/>
+            <input variable="actorID"/>
+            <if expression="FarmerExists(farmerID, registeredFarmerIDs, farmerCount)">
+                <then>
+                    <if expression="ISAuthorised(actorID, farmerID, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)">
+                        <then>
+                            <while expression="listingComplete == False">
+                                <output expression="&quot;Enter the product name&quot;" newline="True"/>
+                                <input variable="productName"/>
+                                <output expression="&quot;Enter the quantity&quot;" newline="True"/>
+                                <input variable="quantity"/>
+                                <output expression="&quot;Enter the unit of mesasurement (bags, kg baskets):&quot;" newline="True"/>
+                                <input variable="unit"/>
+                                <output expression="&quot;Enter the price per unit in Nle&quot;" newline="True"/>
+                                <input variable="pricePerUnit"/>
+                                <output expression="&quot;Enter the product location&quot;" newline="True"/>
+                                <input variable="location"/>
+                                <output expression="&quot;Enter contact preference (phone or SMS)&quot;" newline="True"/>
+                                <input variable="contactPreference"/>
+                                <if expression="productName != &quot;&quot; and unit != &quot;&quot; and location != &quot;&quot; and contactPreference != &quot;&quot; and quantity &gt; 0 and pricePerunit &gt; 0">
+                                    <then>
+                                        <if expression="listingCount &lt; 50">
+                                            <then>
+                                                <assign variable="status" expression="&quot;ACTIVE&quot;"/>
+                                                <assign variable="listingID" expression="&quot;L&quot; &amp; ToString(listingCount + 1)"/>
+                                                <assign variable="listingIDs[listingCount]" expression="listingID"/>
+                                                <assign variable="farmerIDs[listingCount]" expression="farmerID"/>
+                                                <assign variable="products[listingCount]" expression="productName"/>
+                                                <assign variable="quantities[listingCount]" expression="quantity"/>
+                                                <assign variable="units[listingCount]" expression="unit"/>
+                                                <assign variable="prices[listingCount]" expression="pricePerUnit"/>
+                                                <assign variable="locations[listingCount]" expression="location"/>
+                                                <assign variable="contacts[listingCount]" expression="contactPreference"/>
+                                                <assign variable="statuses[listingCount]" expression="status"/>
+                                                <assign variable="updatedCount" expression="listingCount + 1"/>
+                                                <assign variable="listingComplete" expression="True"/>
+                                                <output expression="&quot;Produce listing created successfully&quot;" newline="True"/>
+                                                <output expression="&quot;Listing ID: &quot; &amp; listingID" newline="True"/>
+                                                <output expression="&quot;product: &quot; &amp; productName" newline="True"/>
+                                                <output expression="&quot;quantity: &quot; &amp; ToString(quantity) &amp; &quot; &quot; &amp; unit" newline="True"/>
+                                                <output expression="&quot;Price per unit (Nle): &quot; &amp; ToString(pricePerunit)" newline="True"/>
+                                                <output expression="&quot;Location &quot; &amp; location" newline="True"/>
+                                                <output expression="&quot;Contact preference: &quot; &amp; contactPreference" newline="True"/>
+                                                <output expression="&quot;Status: &quot; &amp; status" newline="True"/>
+                                            </then>
+                                            <else>
+                                                <output expression="&quot;Storage is full. Cannot add another listing.&quot;" newline="True"/>
+                                                <assign variable="listingComplete" expression="True"/>
+                                            </else>
+                                        </if>
+                                    </then>
+                                    <else>
+                                        <output expression="&quot;Invalid listing. Complete all required fields and enter a quantity and price greater than zero.&quot;" newline="True"/>
+                                        <output expression="&quot;Enter RETRY to try again or CANCEL to stop: &quot;" newline="True"/>
+                                        <input variable="choice"/>
+                                        <if expression="choice == &quot;CANCEL&quot;">
+                                            <then>
+                                                <output expression="&quot;Listing cancelled&quot;" newline="True"/>
+                                                <assign variable="listingComplete" expression="True"/>
+                                            </then>
+                                            <else/>
+                                        </if>
+                                    </else>
+                                </if>
+                            </while>
+                        </then>
+                        <else>
+                            <output expression="&quot;Access denied. You are not authorzed to add this listing.&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <output expression="&quot;FARMER not found Registration required&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="farmerExists" type="Boolean" variable="exists">
+        <parameters>
+            <parameter name="farmerID" type="String" array="False"/>
+            <parameter name="registeredFarmerIDs" type="String" array="True"/>
+            <parameter name="farmerCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="exists" type="Boolean" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <assign variable="exists" expression="False"/>
+            <if expression="farmerCount &gt; 0">
+                <then>
+                    <for variable="i" start="0" end="farmerCount -1" direction="inc" step="1">
+                        <if expression="registeredFarmerIDs[i] == farmerID">
+                            <then>
+                                <assign variable="exists" expression="True"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </for>
+                </then>
+                <else/>
+            </if>
+        </body>
+    </function>
+    <function name="IdentifyFarmer" type="Boolean" variable="isVerified">
+        <parameters>
+            <parameter name="registeredFarmerIDs" type="String" array="True"/>
+            <parameter name="farmerCount" type="Integer" array="False"/>
+            <parameter name="authorizedFarmerIDs" type="String" array="True"/>
+            <parameter name="authorizedAssistantIDs" type="String" array="True"/>
+            <parameter name="relationshipCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="isVerified" type="Boolean" array="False" size=""/>
+            <declare name="actorID" type="String" array="False" size=""/>
+            <declare name="farmerID" type="String" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="farmerExists" type="Boolean" array="False" size=""/>
+            <assign variable="isVerified" expression="False"/>
+            <assign variable="farmerExists" expression="False"/>
+            <output expression="&quot;Enter your Actor ID:&quot;" newline="True"/>
+            <input variable="actorID"/>
+            <output expression="&quot;Enter the Farmer ID to identify:&quot;" newline="True"/>
+            <input variable="farmerID"/>
+            <if expression="FarmerExists(farmerID, registeredFarmerIDs, farmerCount) == False">
+                <then>
+                    <output expression="&quot;Farmer registration required.&quot;" newline="True"/>
+                </then>
+                <else>
+                    <if expression="ISAuthorised(actorID, farmerID, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)">
+                        <then>
+                            <assign variable="isVerified" expression="True"/>
+                            <output expression="&quot;Farmer identified and actor authorized.&quot;" newline="True"/>
+                        </then>
+                        <else>
+                            <output expression="&quot;Farmer exists, but access is not authorized.&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="ISAuthorised" type="Boolean" variable="authorized">
+        <parameters>
+            <parameter name="actorID" type="String" array="False"/>
+            <parameter name="farmerID" type="String" array="False"/>
+            <parameter name="authorizedFarmerIDs" type="String" array="True"/>
+            <parameter name="authorizedAssistantIDs" type="String" array="True"/>
+            <parameter name="relationshipCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="authorized" type="Boolean" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <assign variable="authorized" expression="False"/>
+            <if expression="actorID == farmerID">
+                <then>
+                    <assign variable="authorized" expression="True"/>
+                </then>
+                <else>
+                    <if expression="relationshipCount &gt; 0">
+                        <then>
+                            <for variable="i" start="0" end="relationshipCount - 1" direction="inc" step="1">
+                                <if expression="authorizedFarmerIDs[i] == farmerID and authorizedAssistantIDs[i] == actorID">
+                                    <then>
+                                        <assign variable="authorized" expression="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </for>
+                        </then>
+                        <else/>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="MarkListingSold" type="None" variable="">
+        <parameters>
+            <parameter name="listingIDs" type="String" array="True"/>
+            <parameter name="farmerIDs" type="String" array="True"/>
+            <parameter name="statuses" type="String" array="True"/>
+            <parameter name="listingCount" type="Integer" array="False"/>
+            <parameter name="authorizedFarmerIDs" type="String" array="True"/>
+            <parameter name="authorizedAssistantIDs" type="String" array="True"/>
+            <parameter name="relationshipCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="actorID" type="String" array="False" size=""/>
+            <declare name="farmerID" type="String" array="False" size=""/>
+            <declare name="listingID" type="String" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="foundIndex" type="Integer" array="False" size=""/>
+            <output expression="&quot;Enter your Actor ID:&quot;" newline="True"/>
+            <input variable="actorID"/>
+            <output expression="&quot;Enter the Listing ID to mark as SOLD:&quot;" newline="True"/>
+            <assign variable="foundIndex" expression="-1"/>
+            <assign variable="i" expression="0"/>
+            <input variable="listingID"/>
+            <if expression="listingCount &gt; 0">
+                <then>
+                    <for variable="i" start="0" end="listingCount -1" direction="inc" step="1">
+                        <if expression="listingIDs[i] == listingID">
+                            <then>
+                                <assign variable="foundIndex" expression="i"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </for>
+                </then>
+                <else>
+                    <output expression="&quot;no listings available&quot;" newline="True"/>
+                </else>
+            </if>
+            <if expression="foundIndex != -1">
+                <then>
+                    <assign variable="farmerID" expression="farmerIDs[foundIndex]"/>
+                    <assign variable="status" expression="statuses[foundIndex]"/>
+                    <if expression="ISAuthorised(actorID, farmerID, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)">
+                        <then>
+                            <if expression="status == &quot;ACTIVE&quot;">
+                                <then>
+                                    <assign variable="status" expression="&quot;SOLD&quot;"/>
+                                    <assign variable="statuses[foundIndex]" expression="status"/>
+                                    <output expression="&quot;Listing marked SOLD successfully!&quot;" newline="True"/>
+                                    <output expression="&quot;Listing ID: &quot; &amp; listingID" newline="True"/>
+                                    <output expression="&quot;Current status: &quot; &amp; status" newline="True"/>
+                                </then>
+                                <else>
+                                    <output expression="&quot;Listing is not ACTIVE. It cannot be marked SOLD again.&quot;" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <output expression="&quot;Access denied. You are not authorized to mark this listing as SOLD.&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <output expression="&quot;Listing not found.&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="SearchListings" type="None" variable="">
+        <parameters>
+            <parameter name="listingIDs" type="String" array="True"/>
+            <parameter name="products" type="String" array="True"/>
+            <parameter name="quantities" type="Real" array="True"/>
+            <parameter name="units" type="String" array="True"/>
+            <parameter name="prices" type="Real" array="True"/>
+            <parameter name="locations" type="String" array="True"/>
+            <parameter name="contacts" type="String" array="True"/>
+            <parameter name="statuses" type="String" array="True"/>
+            <parameter name="listingCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="searchProduct" type="String" array="False" size=""/>
+            <declare name="searchLocation" type="String" array="False" size=""/>
+            <declare name="found" type="Boolean" array="False" size=""/>
+            <output expression="&quot;Enter the product name you want to search for&quot;" newline="True"/>
+            <input variable="searchProduct"/>
+            <output expression="&quot;Enter preferred location(leave blank for all location): &quot;" newline="True"/>
+            <input variable="searchLocation"/>
+            <if expression="searchProduct == &quot;&quot;">
+                <then>
+                    <output expression="&quot;please enter a product name before searching.&quot;" newline="True"/>
+                </then>
+                <else>
+                    <assign variable="found" expression="False"/>
+                    <if expression="listingCount &gt; 0">
+                        <then>
+                            <for variable="i" start="0" end="listingCount -1" direction="inc" step="1">
+                                <if expression="statuses[i] == &quot;ACTIVE&quot; and products[i] == searchProduct and (searchLocation == &quot;&quot; or locations[i] == searchLocation)">
+                                    <then>
+                                        <output expression="&quot;Matching listing found!&quot;" newline="True"/>
+                                        <output expression="&quot;Listing ID: &quot; &amp; listingIDs[i]" newline="True"/>
+                                        <output expression="&quot;Product: &quot; &amp; products[i]" newline="True"/>
+                                        <output expression="&quot;Quantity: &quot; &amp; ToString(quantities[i]) &amp; &quot; &quot; &amp; units[i]" newline="True"/>
+                                        <output expression="&quot;Price per unit (NLe): &quot; &amp; ToString(prices[i])" newline="True"/>
+                                        <output expression="&quot;Location: &quot; &amp; locations[i]" newline="True"/>
+                                        <output expression="&quot;Contact preference: &quot; &amp; contacts[i]" newline="True"/>
+                                        <output expression="&quot;Status: &quot; &amp; statuses[i]" newline="True"/>
+                                        <assign variable="found" expression="True"/>
+                                    </then>
+                                    <else/>
+                                </if>
+                            </for>
+                        </then>
+                        <else/>
+                    </if>
+                    <if expression="found == False">
+                        <then>
+                            <output expression="&quot;No matching active listings found.&quot;" newline="True"/>
+                        </then>
+                        <else/>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="UpdateListing" type="None" variable="">
+        <parameters>
+            <parameter name="listingIDs" type="String" array="True"/>
+            <parameter name="farmerIDs" type="String" array="True"/>
+            <parameter name="quantities" type="Real" array="True"/>
+            <parameter name="prices" type="Real" array="True"/>
+            <parameter name="statuses" type="String" array="True"/>
+            <parameter name="listingCount" type="Integer" array="False"/>
+            <parameter name="authorizedFarmerIDs" type="String" array="True"/>
+            <parameter name="authorizedAssistantIDs" type="String" array="True"/>
+            <parameter name="relationshipCount" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="foundIndex" type="Integer" array="False" size=""/>
+            <declare name="actorID" type="String" array="False" size=""/>
+            <declare name="listingID" type="String" array="False" size=""/>
+            <assign variable="foundIndex" expression="-1"/>
+            <assign variable="i" expression="0"/>
+            <declare name="farmerID" type="String" array="False" size=""/>
+            <declare name="status" type="String" array="False" size=""/>
+            <declare name="newQuantity" type="Real" array="False" size=""/>
+            <declare name="newPrice" type="Real" array="False" size=""/>
+            <output expression="&quot;Enter your Actor ID:&quot;" newline="True"/>
+            <input variable="actorID"/>
+            <output expression="&quot;Enter the Listing ID you want to update:&quot;" newline="True"/>
+            <input variable="listingID"/>
+            <if expression="listingCount &gt; 0">
+                <then>
+                    <for variable="i" start="0" end="listingCount -1" direction="inc" step="1">
+                        <if expression="listingIDs[i] == listingID">
+                            <then>
+                                <assign variable="foundIndex" expression="i"/>
+                            </then>
+                            <else/>
+                        </if>
+                    </for>
+                    <if expression="foundIndex != -1">
+                        <then>
+                            <assign variable="farmerID" expression="farmerIDs[foundIndex]"/>
+                            <assign variable="status" expression="statuses[foundIndex]"/>
+                            <if expression="ISAuthorised(actorID, farmerID, authorizedFarmerIDs, authorizedAssistantIDs, relationshipCount)">
+                                <then>
+                                    <if expression="status == &quot;ACTIVE&quot;">
+                                        <then>
+                                            <output expression="&quot;Enter the new quantity:&quot;" newline="True"/>
+                                            <input variable="newQuantity"/>
+                                            <output expression="&quot;Enter the new price per unit in NLe:&quot;" newline="True"/>
+                                            <input variable="newPrice"/>
+                                            <if expression="newQuantity &gt; 0 and newPrice &gt; 0">
+                                                <then>
+                                                    <assign variable="quantities[foundIndex]" expression="newQuantity"/>
+                                                    <assign variable="prices[foundIndex]" expression="newPrice"/>
+                                                    <output expression="&quot;Listing updated successfully!&quot;" newline="True"/>
+                                                    <output expression="&quot;Listing ID: &quot; &amp; listingID" newline="True"/>
+                                                    <output expression="&quot;New quantity: &quot; &amp; ToString(newQuantity)" newline="True"/>
+                                                    <output expression="&quot;New price per unit (NLe): &quot; &amp; ToString(newPrice)" newline="True"/>
+                                                    <output expression="&quot;Status: &quot; &amp; status" newline="True"/>
+                                                </then>
+                                                <else>
+                                                    <output expression="&quot;Invalid update. Quantity and price must be greater than zero.&quot;" newline="True"/>
+                                                </else>
+                                            </if>
+                                        </then>
+                                        <else>
+                                            <output expression="&quot;Only ACTIVE listings can be updated.&quot;" newline="True"/>
+                                        </else>
+                                    </if>
+                                </then>
+                                <else>
+                                    <output expression="&quot;Access denied. You are not authorized to update this listing.&quot;" newline="True"/>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <output expression="&quot;Listing not found.&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </then>
+                <else>
+                    <output expression="&quot;No listings available. Please add a listing first.&quot;" newline="True"/>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>

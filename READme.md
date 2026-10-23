@@ -12,8 +12,11 @@ Key	Details
 Module	PROG101  Principles of Programming Logic and Design
 Assignment	Designing Logical Solutions for Sierra Leone Community Challenges
 Deliverable	Logical design and tested Flowgorithm prototype
-Repository URL	GitHub Repository
+Repository URL	GitHub Repository:https://github.com/Dijaconteh/PROG101-ASSIGNMENT-1-KHADIJA-O-CONTECH_5744
+
 Student ID	905005744
+Student Name: KHADIJA O CONTEH
+
 
 
 1. Project Overview

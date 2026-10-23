@@ -2,14 +2,14 @@
 Farmers Trading Market Information System
 
 
-README | PROG101 Assignment 1
+README  PROG101 Assignment 1
 
 A logical-design project with a tested Flowgorithm prototype for agricultural produce discovery in Sierra Leone.
 
 
 
 Key	Details
-Module	PROG101 — Principles of Programming Logic and Design
+Module	PROG101  Principles of Programming Logic and Design
 Assignment	Designing Logical Solutions for Sierra Leone Community Challenges
 Deliverable	Logical design and tested Flowgorithm prototype
 Repository URL	GitHub Repository
@@ -73,5 +73,5 @@ Sample farmer and assistant identifiers are demonstration data only. The program
 • SDG Alignment: The proposed information service relates primarily to SDG 2 (Zero Hunger) through the potential improvement of agricultural market-information access and may contribute to more inclusive local economic participation.
 • Licensing Note: Future open-source development could support adaptation by schools, communities, and public-interest organizations. However, this academic repository is not automatically a certified Digital Public Good, and the availability of files on GitHub does not by itself grant an open-source license. Any license should be selected and added explicitly.
 
-10. Project Files and Repository Submission
+
 

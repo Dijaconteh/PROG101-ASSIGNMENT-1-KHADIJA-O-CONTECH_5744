@@ -63,7 +63,7 @@ Note: Option 0 exits the program.
 1. Open FarmersTradingMarket_Final_Reviewed.fprg in Flowgorithm.
 2. Select the Main module.
 3. Run the chart and use the console to choose menu options 1–5 or 0 to exit.
-🧪 Suggested Test Scenario: Add a valid Rice listing for registered farmer F001 ➔ search for it ➔ update quantity and price ➔ search again to verify updated values ➔ mark the listing SOLD ➔ search again to confirm it is no longer ACTIVE. Test RETRY/CANCEL and unauthorized actor denial as separate scenarios.
+ Suggested Test Scenario: Add a valid Rice listing for registered farmer F001 ➔ search for it ➔ update quantity and price ➔ search again to verify updated values ➔ mark the listing SOLD ➔ search again to confirm it is no longer ACTIVE. Test RETRY/CANCEL and unauthorized actor denial as separate scenarios.
 Sample farmer and assistant identifiers are demonstration data only. The program is not connected to a real farmer registry, public directory, or authentication provider.
 
 8. Project Boundaries
